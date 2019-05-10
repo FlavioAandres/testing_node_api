@@ -1,22 +1,23 @@
 let express = require('express')
 let bodyParser = require('body-parser')
 let { SERVER_PORT } = require('./env')
-let connection = require('./database/connection')
 let app = express();
 
 //
-app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+//DB_CONN
+require('./database/connection')
 
 //routes
 require('./routes/loginRoutes')(app)
-require('./routes/usersRoutes')(app)
+require('./routes/usersRoutes')(app.Router())
 
 //middlewares
+//middleware auth is managed on userRoutes. 
 require('./middlewares/serverInformation')(app)
-require('./middlewares/statusFaild')(app)
-
-
+require('./middlewares/statusFail')(app)
 
 
 app.listen(SERVER_PORT, () => console.info(`server started on port ${SERVER_PORT}`))

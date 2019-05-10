@@ -12,10 +12,11 @@ require('./database/connection')
 
 //routes
 require('./routes/loginRoutes')(app)
-require('./routes/usersRoutes')(app.Router())
+require('./routes/usersRoutes')(app)
 
 //middlewares
 //middleware auth is managed on userRoutes. 
+require('./middlewares/auth')(app)
 require('./middlewares/serverInformation')(app)
 require('./middlewares/statusFail')(app)
 

@@ -7,9 +7,9 @@ let genericResponse = (status, message) => ({
 })
 
 
-module.exports = (Router) => {
-    require('./middlewares/auth')(Router)
-    Router.get('/api/users/get', function(req, res) {
+module.exports = (app) => {
+
+    app.get('/api/users/get', function(req, res) {
         User.find({}, (err, users) => {
             if (err) return res.status(404).send(genericResponse(404, 'An error has ocurred'))
             let nwU = users.map((item) => {

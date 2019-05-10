@@ -31,6 +31,7 @@ module.exports = (app) => {
         User.findById(req.params.id, (err, user) => {
             //ERROR
             if (err) return res.status(404).send(genericResponse(404, `Id: ${req.params.id} not found `))
+                //data body
             if (Object.keys(req.body).length !== 0) {
                 user.name = (req.body.name === undefined) ? user.name : req.body.name
                 user.mail = (req.body.mail === undefined) ? user.mail : req.body.mail
